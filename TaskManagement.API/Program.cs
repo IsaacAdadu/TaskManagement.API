@@ -4,6 +4,7 @@ using TaskManagement.Application.Services;
 using TaskManagement.Domain.Interfaces.Repositories;
 using TaskManagement.Infrastructure.Persistence.Repositories;
 using TaskManagement.Infrastructure.Persistence;
+using TaskManagement.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,7 @@ builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
