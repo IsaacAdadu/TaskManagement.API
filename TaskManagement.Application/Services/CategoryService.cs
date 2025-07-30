@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TaskManagement.Application.DTOs.Category;
 using TaskManagement.Application.Interfaces.Services;
+using TaskManagement.Domain.Entities;
 using TaskManagement.Domain.Interfaces.Repositories;
 
 namespace TaskManagement.Application.Services
@@ -28,6 +29,18 @@ namespace TaskManagement.Application.Services
                 Name = c.Name,
                 Color = c.Color
             });
+        }
+
+        public async Task AddAsync(CreateCategoryDto dto)
+        {
+            var category = new Category
+            {
+                Name = dto.Name,
+                Color = dto.Color
+            };
+
+            await _repository.AddAsync(category);
+            await _repository.SaveChangesAsync();
         }
     }
 }
